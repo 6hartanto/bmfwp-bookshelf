@@ -126,3 +126,22 @@ function removeBookFromCompleted(bookElement) {
   bookElement.remove();
   updateDataToStorage();
 }
+
+const searchBook = document.getElementById("searchSubmit");
+searchBook.addEventListener("click", (event) => {
+    const searchBook1 = document.getElementById("searchBookTitle").value.toLowerCase();
+    const searchBook2 = document.querySelectorAll("article");
+    event.preventDefault();
+    console.log(searchBook1);
+
+    for (bookshelf of searchBook2) {
+        const bookTitle = bookshelf.firstElementChild.textContent.toLowerCase();
+        
+        if(bookTitle.indexOf(searchBook1) != -1) {
+            bookshelf.style.display = "block";
+            console.log(bookTitle);
+        } else {
+            bookshelf.style.display = "none";
+        }
+    }
+});
