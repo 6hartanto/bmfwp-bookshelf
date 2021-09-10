@@ -22,7 +22,6 @@ function addBook() {
     incompletedBookList.append(book);
   }
 
-  incompletedBookList.append(book);
   updateDataToStorage();
 }
 
@@ -46,7 +45,7 @@ function makeBook(title, author, year, isCompleted) {
   if (isCompleted) {
     bookAction.append(createUndoButton(), createTrashButton());
   } else {
-    bookAction.append(createCheckButton());
+    bookAction.append(createCheckButton(), createTrashButton());
   }
 
   const container = document.createElement("article");
@@ -70,7 +69,10 @@ function createUndoButton() {
 
 function createTrashButton() {
   return createButton("red", "Hapus buku", function(event){
+    const confirmDelete = confirm("Yakin ingin menghapus buku?");
+    if (confirmDelete){
       removeBookFromCompleted(event.target.parentElement.parentElement);
+    }
   });
 }
 
@@ -79,7 +81,7 @@ function createButton(buttonTypeClass, buttonText, eventListener) {
   button.classList.add(buttonTypeClass);
   button.innerText = buttonText;
   button.addEventListener("click", function (event) {
-      eventListener(event);
+    eventListener(event);
   });
   return button;
 }
